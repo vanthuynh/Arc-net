@@ -1,5 +1,5 @@
 {
-  "name": "arc-net",
+  "name": "arc-net-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
