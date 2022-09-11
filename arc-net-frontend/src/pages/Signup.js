@@ -47,12 +47,14 @@ function Signup() {
     }
   }
 
-  // Function that check if client has uploaded new image
   async function handleSignup(e) {
     e.preventDefault();
+
+    // check if client has uploaded new image
     if (!image) return alert("Please upload your profile picture");
     const url = await uploadImage(image);
-    console.log(url);
+
+    // Sign up user
   }
 
   return (
@@ -77,7 +79,7 @@ function Signup() {
                 type="file"
                 id="image-upload"
                 hidden
-                accept="image/png, image/jpeg"
+                accept="image/png, image/jpeg, image/jpg"
                 onChange={validateImg}
               />
             </div>
@@ -115,12 +117,12 @@ function Signup() {
             </Form.Group>
 
             <Button variant="primary" type="submit">
-              Create account
+              {uploadingImg ? "Signing you up..." : "Sign Up"}
             </Button>
 
             <div className="py-4">
               <p className="text-center">
-                Already have an account? <Link to="/signup">Login</Link>
+                Already have an account? <Link to="/login">Login</Link>
               </p>
             </div>
           </Form>

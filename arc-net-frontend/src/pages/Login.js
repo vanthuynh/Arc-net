@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Col, Container, Form, Row, Button } from "react-bootstrap";
 // import { useLoginUserMutation } from "../services/appApi";
 import { Link } from "react-router-dom";
@@ -6,6 +6,9 @@ import "./Login.css";
 // import { AppContext } from "../context/appContext";
 
 function Login() {
+  const { email, setEmail } = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <Container>
       <Row>
@@ -17,14 +20,24 @@ function Login() {
           <Form style={{ width: "80%", maxWidth: 500 }}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
-              <Form.Control type="email" placeholder="Enter email" />
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+              />
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
               </Form.Text>
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placehoder="Password" />
+              <Form.Control
+                type="password"
+                placehoder="Password"
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+              />
             </Form.Group>
 
             <Button variant="primary" type="submit">
