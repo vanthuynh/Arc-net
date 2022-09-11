@@ -9,6 +9,11 @@ function Login() {
   const { email, setEmail } = useState("");
   const [password, setPassword] = useState("");
 
+  function handleLogin(e) {
+    e.preventDefault();
+
+    //Login user
+  }
   return (
     <Container>
       <Row>
@@ -17,7 +22,7 @@ function Login() {
           md={7}
           className="d-flex align-items-center justify-content-center flex-direction-column"
         >
-          <Form style={{ width: "80%", maxWidth: 500 }}>
+          <Form style={{ width: "80%", maxWidth: 500 }} onSubmit={handleLogin}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control
@@ -25,6 +30,7 @@ function Login() {
                 placeholder="Enter email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
+                required
               />
               <Form.Text className="text-muted">
                 We'll never share your email with anyone else.
@@ -37,6 +43,7 @@ function Login() {
                 placehoder="Password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
+                required
               />
             </Form.Group>
 
