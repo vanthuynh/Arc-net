@@ -1,31 +1,30 @@
 import React, { useState } from "react";
 import { Col, Container, Form, Row, Button } from "react-bootstrap";
-import { useSignupUserMutation } from "../services/appApi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Signup.css";
 import botImg from "../assets/bot.jpeg";
 
 function Signup() {
-  const [email, setEmail] = useState("");
+  const { email, setEmail } = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [signupUser, { isLoading, error }] = useSignupUserMutation();
-  const navigate = useNavigate();
-  //image upload states
+
+  // image upload states
   const [image, setImage] = useState(null);
-  const [upladingImg, setUploadingImg] = useState(false);
+  const [uploadingImg, setUploadingImg] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
 
   function validateImg(e) {
     const file = e.target.files[0];
     if (file.size >= 1048576) {
-      return alert("Max file size is 1mb");
+      return alert("Max file size is 1MB");
     } else {
       setImage(file);
       setImagePreview(URL.createObjectURL(file));
     }
   }
 
+  // Upload image function
   async function uploadImage() {
     const data = new FormData();
     data.append("file", image);
@@ -50,16 +49,12 @@ function Signup() {
 
   async function handleSignup(e) {
     e.preventDefault();
+
+    // check if client has uploaded new image
     if (!image) return alert("Please upload your profile picture");
     const url = await uploadImage(image);
-    console.log(url);
-    // signup the user
-    signupUser({ name, email, password, picture: url }).then(({ data }) => {
-      if (data) {
-        console.log(data);
-        navigate("/chat");
-      }
-    });
+
+    // Sign up user
   }
 
   return (
@@ -70,12 +65,12 @@ function Signup() {
           className="d-flex align-items-center justify-content-center flex-direction-column"
         >
           <Form style={{ width: "80%", maxWidth: 500 }} onSubmit={handleSignup}>
-            <h1 className="text-center">Create account</h1>
+            <h1 className="text-center">Create Account</h1>
             <div className="signup-profile-pic__container">
               <img
-                alt="user's avatar"
                 src={imagePreview || botImg}
                 className="signup-profile-pic"
+                alt="avatar"
               />
               <label htmlFor="image-upload" className="image-upload-label">
                 <i className="fas fa-plus-circle add-picture-icon"></i>
@@ -84,11 +79,10 @@ function Signup() {
                 type="file"
                 id="image-upload"
                 hidden
-                accept="image/png, image/jpeg"
+                accept="image/png, image/jpeg, image/jpg"
                 onChange={validateImg}
               />
             </div>
-            {error && <p className="alert alert-danger">{error.data}</p>}
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label>Name</Form.Label>
               <Form.Control
@@ -115,17 +109,19 @@ function Signup() {
               <Form.Label>Password</Form.Label>
               <Form.Control
                 type="password"
-                placeholder="Password"
+                placehoder="Password"
                 onChange={(e) => setPassword(e.target.value)}
                 value={password}
               />
             </Form.Group>
+
             <Button variant="primary" type="submit">
-              {upladingImg || isLoading ? "Signing you up..." : "Signup"}
+              {uploadingImg ? "Signing you up..." : "Sign Up"}
             </Button>
+
             <div className="py-4">
               <p className="text-center">
-                Already have an account ? <Link to="/login">Login</Link>
+                Already have an account? <Link to="/login">Login</Link>
               </p>
             </div>
           </Form>
