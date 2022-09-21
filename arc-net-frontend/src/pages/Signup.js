@@ -17,7 +17,7 @@ function Signup() {
   function validateImg(e) {
     const file = e.target.files[0];
     if (file.size >= 1048576) {
-      return alert("Max file size is 1mb");
+      return alert("Max file size is 1MB");
     } else {
       setImage(file);
       setImagePreview(URL.createObjectURL(file));
