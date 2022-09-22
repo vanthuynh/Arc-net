@@ -1,15 +1,16 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-// define a service user a base URL
-
+// Utilize Redux, we can make queries to database
+//// doing this we can avoid writing fetch() or axios() functions
 const appApi = createApi({
   reducerPath: "appApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5001",
+    baseUrl: "http://localhost:5001", // define a service using a base URL
   }),
 
   endpoints: (builder) => ({
     // creating the user
+    // mutations are used to send data updates to the server
     signupUser: builder.mutation({
       query: (user) => ({
         url: "/users",
@@ -28,7 +29,6 @@ const appApi = createApi({
     }),
 
     // logout
-
     logoutUser: builder.mutation({
       query: (payload) => ({
         url: "/logout",
