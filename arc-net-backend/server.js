@@ -1,8 +1,11 @@
 const express = require("express");
 const app = express();
 const userRoutes = require("./routes/userRoutes");
+
 const User = require("./models/User");
-const room = ["general", "tech", "finance", "crypto"];
+const Message = require("./models/Message");
+
+const rooms = ["general", "tech", "finance", "crypto"];
 const cors = require("cors");
 
 app.use(express.urlencoded({ extended: true }));
