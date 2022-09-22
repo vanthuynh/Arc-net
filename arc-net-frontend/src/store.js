@@ -6,7 +6,7 @@ import appApi from "./services/appApi";
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
-import thunk from "redux-thunk";
+import thunk from "redux-thunk"; // redux thunk allows asynchronous operation (login in this case)
 
 // reducers
 const reducer = combineReducers({
