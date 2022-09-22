@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import { Col, ListGroup, Row } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { AppContext } from "../context/appContext";
@@ -18,6 +18,15 @@ function Sidebar() {
     currentRoom,
   } = useContext(AppContext);
 
+  useEffect(() => {
+    if (user) {
+      setCurrentRoom("general");
+      getRooms();
+      socket.emit("join-room", "general");
+      socket.emit("new-user");
+    }
+  }, []);
+
   socket.off("new-user").on("new-user", (payload) => {
     setMembers(payload);
     // console.log(payload);
@@ -27,6 +36,13 @@ function Sidebar() {
   if (!user) {
     return <></>;
   }
+
+  function getRooms() {
+    fetch("http://localhost:5001/rooms")
+      .then((res) => res.json())
+      .then((data) => setRooms(data));
+  }
+
   return (
     <>
       <h2> Available Rooms </h2>
