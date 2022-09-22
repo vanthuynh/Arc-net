@@ -4,6 +4,7 @@ import appApi from "../services/appApi";
 export const userSlice = createSlice({
   name: "user",
   initialState: null,
+  // reducers are functions that can change users' state
   reducers: {
     addNotifications: (state, { payload }) => {
       if (state.newMessages[payload]) {
