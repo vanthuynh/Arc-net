@@ -21,6 +21,7 @@ function MessageForm() {
               <Form.Control
                 type="text"
                 placeholder="your message"
+                disabled={!user}
               ></Form.Control>
             </Form.Group>
           </Col>
@@ -29,6 +30,7 @@ function MessageForm() {
               variant="primary"
               type="submit"
               style={{ width: "100%", backgroundColor: "orange" }}
+              disabled={!user}
             >
               <i className="fas fa-paper-plane"></i>
             </Button>
